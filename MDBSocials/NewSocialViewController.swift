@@ -33,13 +33,12 @@ class NewSocialViewController: UIViewController {
         setupButton()
         setupProfileImageView()
         setupExitButton()
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
     func setupNewPostTitle() {
         newPostTitle = UITextField(frame: CGRect(x: 10, y: UIApplication.shared.statusBarFrame.maxY + 40, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.05))
         newPostTitle.layer.shadowRadius = 2.0
@@ -133,6 +132,7 @@ class NewSocialViewController: UIViewController {
         self.newPostTitle.text = ""
         self.dismiss(animated: true, completion: nil)
     }
+    
     func pickImage(sender: UIButton!) {
         picker.allowsEditing = false
         picker.sourceType = .photoLibrary
@@ -158,6 +158,7 @@ class NewSocialViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     func setupProfilePic(id: String, withBlock: @escaping () -> ()) {
         let newImageData = UIImageJPEGRepresentation(newImageView.image!, 0.9)
         let storage = FIRStorage.storage().reference().child("profilepics/\((id))")
@@ -168,8 +169,8 @@ class NewSocialViewController: UIViewController {
             withBlock()
         }
     }
-    
 }
+
 extension NewSocialViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -179,10 +180,12 @@ extension NewSocialViewController: UIImagePickerControllerDelegate, UINavigation
         newImageView.image = chosenImage
         dismiss(animated:true, completion: nil)
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
 }
+
 extension NewSocialViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

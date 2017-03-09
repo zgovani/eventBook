@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Firebase
 
-
 class Post {
     var description: String?
     var imageUrl: String?
@@ -57,20 +56,10 @@ class Post {
         
     }
     
-    init() {
-        self.description = "This is a god dream"
-        self.imageUrl = "https://cmgajcmusic.files.wordpress.com/2016/06/kanye-west2.jpg"
-        self.id = "1"
-        self.poster = "Kanye West"
-        self.likers = []
-    }
-    
     func getProfilePic(withBlock: @escaping (_ profileImage: UIImage) -> ()) {
-        
         let storage = FIRStorage.storage().reference().child("profilepics/\((id)!)")
         storage.data(withMaxSize: 1 * 2048 * 2048) { data, error in
             if let error = error {
-                // Uh-oh, an error occurred!
                 print(error)
             } else {
                 DispatchQueue.main.async {
@@ -79,6 +68,7 @@ class Post {
             }
         }
     }
+    
     func addInterestedUser(withId: String) {
         let ref: FIRDatabaseReference = FIRDatabase.database().reference().child("Posts")
         self.likers.append(withId)

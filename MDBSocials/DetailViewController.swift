@@ -40,12 +40,10 @@ class DetailViewController: UIViewController {
         setupLikeButton()
         setupWhoButton()
         setupTallyText()
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setupProfileImage() {
@@ -54,12 +52,6 @@ class DetailViewController: UIViewController {
         profileImage.contentMode = .scaleAspectFit
         profileImage.loadGif(name: "ajax-loader")
         view.addSubview(profileImage)
-        //        post.getProfilePic(withBlock: { profImage in
-        //            DispatchQueue.main.async {
-        //                self.profileImage.image = profImage
-        //
-        //            }
-        //        })
     }
     
     func setupPostTitle() {
@@ -105,6 +97,7 @@ class DetailViewController: UIViewController {
         view.addSubview(postText)
         
     }
+    
     func setupLikeButton() {
         likeButton = UIButton(frame: CGRect(x: 10, y: postText.frame.maxY + 10, width: view.frame.width/2 - 10, height: 30))
         likeButton.titleLabel?.textAlignment = .left
@@ -115,7 +108,6 @@ class DetailViewController: UIViewController {
         likeButton.layer.borderColor = UIColor.lightGray.cgColor
         likeButton.layer.masksToBounds = true
         likeButton.backgroundColor = Constants.skyBlue
-        
         if post.likers.contains(user.id) {
             likeButton.setTitleColor(UIColor.darkGray, for: .normal)
             likeButton.layer.borderColor = UIColor.darkGray.cgColor
@@ -124,6 +116,7 @@ class DetailViewController: UIViewController {
         likeButton.addTarget(self, action: #selector(DetailViewController.likeButtonPressed), for: .touchUpInside)
         view.addSubview(likeButton)
     }
+    
     func setupWhoButton() {
         whoButton = UIButton(frame: CGRect(x: likeButton.frame.maxX, y: postText.frame.maxY + 10, width: view.frame.width/2 - 10, height: 30))
         whoButton.setTitle("Who is going?", for: .normal)
@@ -155,8 +148,8 @@ class DetailViewController: UIViewController {
             tallyText.text = "There are " + String(self.post.likers.count) +  " people RSVP'd."
             post.go = Post.goingStatus.going
         }
-        
     }
+    
     func whoButtonPressed() {
         performSegue(withIdentifier: "toLikersFromDetail", sender: self)
     }
@@ -167,7 +160,6 @@ class DetailViewController: UIViewController {
             likerVC.post = post
         }
     }
-    
 }
 
 

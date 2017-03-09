@@ -19,9 +19,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red:0.51, green:0.70, blue:0.82, alpha:1.0)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        setupBackground()
         setupTitle()
         setupTextFields()
         setupButtons()
@@ -32,14 +30,19 @@ class LoginViewController: UIViewController {
         super.touchesBegan(touches, with: event)
     }
     
+    func setupBackground() {
+        view.backgroundColor = Constants.darkBlue
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
     func setupTitle() {
         appTitle = UILabel(frame: CGRect(x: 10, y: 10, width: UIScreen.main.bounds.width - 20, height: 0.4 * UIScreen.main.bounds.height))
-        appTitle.font = UIFont.init(name: "Garamond", size: 45)
+        appTitle.font = Constants.garamond
         appTitle.textColor = UIColor.darkGray
         appTitle.adjustsFontSizeToFitWidth = true
         appTitle.textAlignment = .center
         appTitle.text = "Socials"
-        
         view.addSubview(appTitle)
     }
     
@@ -47,11 +50,11 @@ class LoginViewController: UIViewController {
         emailTextField = UITextField(frame: CGRect(x: 10, y: 0.65 * UIScreen.main.bounds.height, width: UIScreen.main.bounds.width - 20, height: 50))
         emailTextField.adjustsFontSizeToFitWidth = true
         emailTextField.placeholder = "Email"
-        emailTextField.font = UIFont.init(name: "Garamond", size: 20)
+        emailTextField.font = Constants.garamond
         emailTextField.adjustsFontSizeToFitWidth = true
         emailTextField.layoutIfNeeded()
-        emailTextField.layer.borderColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0).cgColor
-        emailTextField.backgroundColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0)
+        emailTextField.layer.borderColor = Constants.skyBlue.cgColor
+        emailTextField.backgroundColor =  Constants.skyBlue
         emailTextField.layer.borderWidth = 1.0
         emailTextField.layer.masksToBounds = true
         emailTextField.textColor = UIColor.darkGray
@@ -64,10 +67,10 @@ class LoginViewController: UIViewController {
         passwordTextField = UITextField(frame: CGRect(x: 10, y: emailTextField.frame.maxY + 2, width: UIScreen.main.bounds.width - 20, height: 50))
         passwordTextField.adjustsFontSizeToFitWidth = true
         passwordTextField.placeholder = "Password"
-        passwordTextField.layer.borderColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0).cgColor
-        passwordTextField.backgroundColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0)
-        emailTextField.font = UIFont.init(name: "Garamond", size: 20)
-        emailTextField.adjustsFontSizeToFitWidth = true
+        passwordTextField.layer.borderColor = Constants.skyBlue.cgColor
+        passwordTextField.backgroundColor = Constants.skyBlue
+        passwordTextField.font = Constants.garamond
+        passwordTextField.adjustsFontSizeToFitWidth = true
         passwordTextField.layer.borderWidth = 1.0
         passwordTextField.layer.masksToBounds = true
         passwordTextField.isSecureTextEntry = true
@@ -79,7 +82,6 @@ class LoginViewController: UIViewController {
     }
     
     func setupButtons() {
-        
         loginButton = UIButton(frame: CGRect(x: 10, y: passwordTextField.frame.maxY + 20, width: 0.5 * UIScreen.main.bounds.width - 20, height: 30))
         loginButton.layoutIfNeeded()
         loginButton.setTitle("Log In", for: .normal)
@@ -92,6 +94,7 @@ class LoginViewController: UIViewController {
         loginButton.titleLabel?.font = Constants.garamond
         loginButton.titleLabel?.font = loginButton.titleLabel?.font.withSize(20)
         self.view.addSubview(loginButton)
+        
         
         signupButton = UIButton(frame: CGRect(x: 0.5 * UIScreen.main.bounds.width + 10, y: passwordTextField.frame.maxY + 20, width: 0.5 * UIScreen.main.bounds.width - 20, height: 30))
         signupButton.layoutIfNeeded()
@@ -108,7 +111,6 @@ class LoginViewController: UIViewController {
     }
     
     func loginButtonClicked(sender: UIButton!) {
-        print("logging")
         let email = emailTextField.text!
         let password = passwordTextField.text!
         if email != "" && password != "" {
@@ -120,6 +122,9 @@ class LoginViewController: UIViewController {
                     self.performSegue(withIdentifier: "toFeedFromLogin", sender: self)
                     self.loginButton.isEnabled = true
                 }
+                else {
+                    print(error.debugDescription)
+                }
             })
         }
     }
@@ -130,17 +135,14 @@ class LoginViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
             }
         }
-        
     }
     
     func keyboardWillHide(notification: NSNotification) {
@@ -150,9 +152,8 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    
 }
+
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

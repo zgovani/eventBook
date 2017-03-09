@@ -19,32 +19,24 @@ class LikersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setupTableView(){
-        //Initialize TableView Object here
         tableView = UITableView(frame: CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: view.frame.width, height: view.frame.height))
-        //Register the tableViewCell you are using
         tableView.register(LikerTableViewCell.self, forCellReuseIdentifier: "liker")
         tableView.backgroundColor = Constants.darkBlue
-        //Set properties of TableView
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 50
         tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 50/2, right: 0)
-        
-        //Add tableView to view
         view.addSubview(tableView)
     }
     
     func fetchUser(withBlock: @escaping () -> ()) {
-        //TODO: Implement a method to fetch posts with Firebase!
         let ref = FIRDatabase.database().reference()
         ref.child("Users").child(currentUserId).observeSingleEvent(of: .value, with: { (snapshot) in
             print(self.currentUserId)
@@ -52,7 +44,6 @@ class LikersViewController: UIViewController {
             self.currentUser = user
             print("The user's email is \(self.currentUser?.email)")
             withBlock()
-            
         })
     }
 }
@@ -71,12 +62,10 @@ extension LikersViewController: UITableViewDataSource, UITableViewDelegate{
         }
         cell.awakeFromNib()
         currentUserId = post.likers[indexPath.row]
-        print(indexPath.row)
         fetchUser {
             cell.name.text = self.currentUser.name
         }
         cell.name.adjustsFontSizeToFitWidth = true
         return cell
     }
-    
 }

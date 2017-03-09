@@ -16,21 +16,22 @@ class PostCollectionViewCell: UICollectionViewCell {
     var poster: UILabel!
     var numRSVP: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        let gradient = CAGradientLayer()
-        gradient.frame = contentView.bounds
-        let blue1: UIColor = UIColor(red:0.51, green:0.70, blue:0.82, alpha:1.0)
-        let blue2: UIColor = UIColor(red:0.94, green:0.97, blue:1.00, alpha:1.0)
-        gradient.colors = [blue2.cgColor, blue1.cgColor]
-        gradient.startPoint = CGPoint(x: 1, y: 1)
-        gradient.endPoint = CGPoint(x: 0, y: 0)
-        contentView.layer.insertSublayer(gradient, at: 0)
+        setupGradient()
         setupProfileImage()
         setupTitle()
         setupPoster()
         setupNumRSVP()
+    }
+    
+    func setupGradient() {
+        let gradient = CAGradientLayer()
+        gradient.frame = contentView.bounds
+        gradient.colors = [Constants.lightBlue.cgColor, Constants.darkBlue.cgColor]
+        gradient.startPoint = CGPoint(x: 1, y: 1)
+        gradient.endPoint = CGPoint(x: 0, y: 0)
+        contentView.layer.insertSublayer(gradient, at: 0)
     }
     
     func setupProfileImage() {
@@ -42,15 +43,16 @@ class PostCollectionViewCell: UICollectionViewCell {
     func setupTitle() {
         title = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: 10, width: self.frame.width/2 - 10, height: 30))
         title.textColor = UIColor.darkGray
-        title.font = UIFont(name: "Garamond", size: 25)
+        title.font = Constants.garamond
         contentView.addSubview(title)
     }
     
     func setupPoster() {
         poster = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: title.frame.maxY + 10, width: self.frame.width/2 - 10, height: 13))
         poster.textColor = UIColor.darkGray
-        poster.font = UIFont(name: "Garamond", size: 15)
-        poster.adjustsFontForContentSizeCategory = true
+        poster.font = Constants.garamond
+        poster.adjustsFontSizeToFitWidth = true
+        poster.font = poster.font.withSize(20)
         contentView.addSubview(poster)
         
     }
@@ -58,8 +60,9 @@ class PostCollectionViewCell: UICollectionViewCell {
     func setupNumRSVP() {
         numRSVP = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: contentView.frame.height-30, width: self.frame.width/2 - 10, height: 20))
         numRSVP.textColor = UIColor.darkGray
-        numRSVP.font = UIFont(name: "Garamond", size: 15)
-        numRSVP.adjustsFontForContentSizeCategory = true
+        numRSVP.font = Constants.garamond
+        numRSVP.adjustsFontSizeToFitWidth = true
+        numRSVP.font = numRSVP.font.withSize(20)
         contentView.addSubview(numRSVP)
         
     }

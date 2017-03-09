@@ -68,7 +68,6 @@ class FeedViewController: UIViewController {
     }
     
     func logOut() {
-        //TODO: Log out using Firebase!
         let firebaseAuth = FIRAuth.auth()
         do {
             try firebaseAuth?.signOut()
@@ -101,7 +100,6 @@ class FeedViewController: UIViewController {
     }
     
     func fetchPosts(withBlock: @escaping () -> ()) {
-        //TODO: Implement a method to fetch posts with Firebase!
         let ref = FIRDatabase.database().reference()
         ref.child("Posts").observe(.childAdded, with: { (snapshot) in
             DispatchQueue.main.async {
@@ -116,7 +114,6 @@ class FeedViewController: UIViewController {
     }
     
     func fetchUser(withBlock: @escaping () -> ()) {
-        //TODO: Implement a method to fetch posts with Firebase!
         let ref = FIRDatabase.database().reference()
         ref.child("Users").child((self.auth?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
             DispatchQueue.main.async {
@@ -146,22 +143,13 @@ class FeedViewController: UIViewController {
             let detailVC = segue.destination as! DetailViewController
             detailVC.post = clickedPost
             detailVC.user = currentUser
-        } else if segue.identifier == "toNewFromFeed" {
+        }
+        else if segue.identifier == "toNewFromFeed" {
             let newVC = segue.destination as! NewSocialViewController
             newVC.currentUser = currentUser
         }
     }
     
-}
-
-protocol LikeButtonProtocol {
-    func likeButtonClicked(sender: UIButton!)
-}
-
-extension FeedViewController: LikeButtonProtocol {
-    func likeButtonClicked(sender: UIButton!) {
-        //TODO: Implement like button using Firebase transactions!
-    }
 }
 
 extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -186,7 +174,6 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.profileImage.contentMode = .scaleAspectFill
             }
         })
-        
         cell.poster.text = postInQuestion.poster
         cell.numRSVP.text = "RSVP Number: " + String(postInQuestion.likers.count)
         cell.title.text = postInQuestion.title
@@ -212,6 +199,4 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         clickedPost = cell.post
         performSegue(withIdentifier: "toDetailFromFeed", sender: self)
     }
-    
-    
 }

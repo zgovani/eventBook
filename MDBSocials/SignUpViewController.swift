@@ -20,9 +20,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red:0.51, green:0.70, blue:0.82, alpha:1.0)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        setupBackground()
         setupTitle()
         setupTextFields()
         setupButtons()
@@ -37,24 +35,31 @@ class SignUpViewController: UIViewController {
         super.touchesBegan(touches, with: event)
     }
     
+    func setupBackground() {
+        view.backgroundColor = Constants.darkBlue
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
     func setupTitle() {
         titleLabel = UILabel(frame: CGRect(x: 10, y: 10, width: UIScreen.main.bounds.width - 20, height: 0.4 * UIScreen.main.bounds.height))
-        titleLabel.font = UIFont.init(name: "Garamond", size: 45)
+        titleLabel.font = Constants.garamond
         titleLabel.textColor = UIColor.darkGray
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.textAlignment = .center
         titleLabel.text = "Sign Up"
         view.addSubview(titleLabel)
     }
+    
     func setupTextFields() {
         emailTextField = UITextField(frame: CGRect(x: 10, y: 0.65 * UIScreen.main.bounds.height - 52, width: UIScreen.main.bounds.width - 20, height: 50))
         emailTextField.adjustsFontSizeToFitWidth = true
         emailTextField.placeholder = "Email"
-        emailTextField.font = UIFont.init(name: "Garamond", size: 20)
+        emailTextField.font = Constants.garamond
         emailTextField.adjustsFontSizeToFitWidth = true
         emailTextField.layoutIfNeeded()
-        emailTextField.layer.borderColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0).cgColor
-        emailTextField.backgroundColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0)
+        emailTextField.layer.borderColor = Constants.skyBlue.cgColor
+        emailTextField.backgroundColor = Constants.skyBlue
         emailTextField.layer.borderWidth = 1.0
         emailTextField.layer.masksToBounds = true
         emailTextField.textColor = UIColor.darkGray
@@ -67,11 +72,11 @@ class SignUpViewController: UIViewController {
         passwordTextField = UITextField(frame: CGRect(x: 10, y: emailTextField.frame.maxY + 2, width: UIScreen.main.bounds.width - 20, height: 50))
         passwordTextField.adjustsFontSizeToFitWidth = true
         passwordTextField.placeholder = "Password"
-        passwordTextField.font = UIFont.init(name: "Garamond", size: 20)
+        passwordTextField.font = Constants.garamond
         passwordTextField.adjustsFontSizeToFitWidth = true
         passwordTextField.layoutIfNeeded()
-        passwordTextField.layer.borderColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0).cgColor
-        passwordTextField.backgroundColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0)
+        passwordTextField.layer.borderColor = Constants.skyBlue.cgColor
+        passwordTextField.backgroundColor = Constants.skyBlue
         passwordTextField.layer.borderWidth = 1.0
         passwordTextField.layer.masksToBounds = true
         passwordTextField.textColor = UIColor.darkGray
@@ -81,14 +86,15 @@ class SignUpViewController: UIViewController {
         passwordTextField.delegate = self
         self.view.addSubview(passwordTextField)
         
+        
         nameTextField = UITextField(frame: CGRect(x: 10, y: passwordTextField.frame.maxY + 2, width: UIScreen.main.bounds.width - 20, height: 50))
         nameTextField.adjustsFontSizeToFitWidth = true
         nameTextField.placeholder = "Name"
-        nameTextField.font = UIFont.init(name: "Garamond", size: 20)
+        nameTextField.font = Constants.garamond
         nameTextField.adjustsFontSizeToFitWidth = true
         nameTextField.layoutIfNeeded()
-        nameTextField.layer.borderColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0).cgColor
-        nameTextField.backgroundColor = UIColor(red:0.75, green:0.84, blue:0.89, alpha:1.0)
+        nameTextField.layer.borderColor = Constants.skyBlue.cgColor
+        nameTextField.backgroundColor = Constants.skyBlue
         nameTextField.layer.borderWidth = 1.0
         nameTextField.layer.masksToBounds = true
         nameTextField.textColor = UIColor.darkGray
@@ -99,7 +105,6 @@ class SignUpViewController: UIViewController {
     }
     
     func setupButtons() {
-        
         signupButton = UIButton(frame: CGRect(x: 10, y: nameTextField.frame.maxY + 20, width: 0.5 * UIScreen.main.bounds.width - 20, height: 30))
         signupButton.layoutIfNeeded()
         signupButton.setTitle("Sign Up", for: .normal)
@@ -125,30 +130,29 @@ class SignUpViewController: UIViewController {
         goBackButton.titleLabel?.font = Constants.garamond
         goBackButton.titleLabel?.font = goBackButton.titleLabel?.font.withSize(20)
         self.view.addSubview(goBackButton)
-        
     }
     
     
     func signupButtonClicked() {
-        signupButton.isEnabled = false
         let email = emailTextField.text!
         let password = passwordTextField.text!
         let name = nameTextField.text!
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
-            if error == nil {
-                let ref = FIRDatabase.database().reference().child("Users").child((FIRAuth.auth()?.currentUser?.uid)!)
-                ref.setValue(["name": name, "email": email])
-                self.emailTextField.text = ""
-                self.passwordTextField.text = ""
-                self.nameTextField.text = ""
-                self.performSegue(withIdentifier: "toFeedFromSignup", sender: self)
-                self.signupButton.isEnabled = true
-                
-            }
-            else {
-                print(error.debugDescription)
-            }
-        })
+        if name != "" && password != "" && email != "" {
+            FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
+                if error == nil {
+                    let ref = FIRDatabase.database().reference().child("Users").child((FIRAuth.auth()?.currentUser?.uid)!)
+                    ref.setValue(["name": name, "email": email])
+                    self.emailTextField.text = ""
+                    self.passwordTextField.text = ""
+                    self.nameTextField.text = ""
+                    self.performSegue(withIdentifier: "toFeedFromSignup", sender: self)
+                    self.signupButton.isEnabled = true
+                }
+                else {
+                    print(error.debugDescription)
+                }
+            })
+        }
     }
     
     func goBackButtonClicked() {
@@ -156,7 +160,6 @@ class SignUpViewController: UIViewController {
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{
                 self.view.frame.origin.y -= keyboardSize.height
@@ -172,8 +175,8 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-    
 }
+
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
