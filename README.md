@@ -1,7 +1,4 @@
 <<<<<<< HEAD
 # eventBook
-=======
-# socials
-Event planning app using Firebase API
->>>>>>> 6e8a648160cc4fca94b887a41740a9765ce24fa4
-# eventBook
+
+Features: Utilizes Firebase authentication, database, and storage; clean, programmatic UI; event creation in-app; collectionView for event display; account creation in-app; RSVP for events; image storing through Firebase.
