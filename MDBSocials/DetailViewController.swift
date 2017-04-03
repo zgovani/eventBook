@@ -51,6 +51,12 @@ class DetailViewController: UIViewController {
         profileImage.clipsToBounds = true
         profileImage.contentMode = .scaleAspectFit
         profileImage.loadGif(name: "ajax-loader")
+        post.getProfilePic(withBlock: { profImage in
+            DispatchQueue.main.async {
+                profileImage.image = profImage
+                profileImage.contentMode = .scaleAspectFill
+            }
+        })
         view.addSubview(profileImage)
     }
     
