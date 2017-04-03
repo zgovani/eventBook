@@ -48,7 +48,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
     
     func setupPoster() {
-        poster = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: title.frame.maxY + 10, width: self.frame.width/2 - 10, height: 13))
+        poster = UILabel(frame: CGRect(x: profileImage.frame.maxX + 10, y: title.frame.maxY + 10, width: self.frame.width/2 - 10, height: 20))
         poster.textColor = UIColor.darkGray
         poster.font = Constants.garamond
         poster.adjustsFontSizeToFitWidth = true

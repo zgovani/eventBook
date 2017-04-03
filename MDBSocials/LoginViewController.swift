@@ -42,7 +42,7 @@ class LoginViewController: UIViewController {
         appTitle.textColor = UIColor.darkGray
         appTitle.adjustsFontSizeToFitWidth = true
         appTitle.textAlignment = .center
-        appTitle.text = "Socials"
+        appTitle.text = "eventBook"
         view.addSubview(appTitle)
     }
     

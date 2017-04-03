@@ -53,8 +53,8 @@ class DetailViewController: UIViewController {
         profileImage.loadGif(name: "ajax-loader")
         post.getProfilePic(withBlock: { profImage in
             DispatchQueue.main.async {
-                profileImage.image = profImage
-                profileImage.contentMode = .scaleAspectFill
+                self.profileImage.image = profImage
+                self.profileImage.contentMode = .scaleAspectFill
             }
         })
         view.addSubview(profileImage)
@@ -91,7 +91,7 @@ class DetailViewController: UIViewController {
     }
     
     func setupPostText() {
-        postText = UITextView(frame: CGRect(x: 10, y: posterText.frame.maxY + 10, width: view.frame.width - 10, height: 50))
+        postText = UITextView(frame: CGRect(x: 5, y: posterText.frame.maxY + 10, width: view.frame.width - 10, height: 50))
         postText.textColor = UIColor.darkGray
         postText.textAlignment = .left
         postText.backgroundColor = Constants.darkBlue
@@ -137,7 +137,13 @@ class DetailViewController: UIViewController {
     
     func setupTallyText() {
         tallyText = UILabel(frame: CGRect(x: 10, y: likeButton.frame.maxY + 10, width: view.frame.width/2 - 10, height: 30))
-        tallyText.text = "There are " + String(self.post.likers.count) +  " people RSVP'd."
+        var linkingVerb = "are"
+        var personPeople = "people"
+        if self.post.likers.count == 1 {
+            linkingVerb = "is"
+            personPeople = "person"
+        }
+        tallyText.text = "There " + linkingVerb + " " + String(self.post.likers.count) +  " " + personPeople + " RSVP'd."
         tallyText.font = Constants.garamond
         tallyText.textColor = UIColor.darkGray
         tallyText.adjustsFontForContentSizeCategory = true
@@ -151,7 +157,13 @@ class DetailViewController: UIViewController {
             likeButton.setTitleColor(UIColor.darkGray, for: .normal)
             likeButton.layer.borderColor = UIColor.darkGray.cgColor
             likeButton.backgroundColor = Constants.darkBlue
-            tallyText.text = "There are " + String(self.post.likers.count) +  " people RSVP'd."
+            var linkingVerb = "are"
+            var personPeople = "people"
+            if self.post.likers.count == 1 {
+                linkingVerb = "is"
+                personPeople = "person"
+            }
+            tallyText.text = "There " + linkingVerb + " " + String(self.post.likers.count) +  " " + personPeople + " RSVP'd."
             post.go = Post.goingStatus.going
         }
     }

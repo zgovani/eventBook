@@ -11,7 +11,6 @@
 		9253098F1E681E77003C77F2 /* LikersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9253098E1E681E77003C77F2 /* LikersViewController.swift */; };
 		925309911E681ED7003C77F2 /* LikerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925309901E681ED7003C77F2 /* LikerTableViewCell.swift */; };
 		925309931E68DCC7003C77F2 /* loading-1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 925309921E68DCC7003C77F2 /* loading-1.gif */; };
-		925F66821E6E04AB00BC4073 /* Garamond.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 925F66811E6E04AB00BC4073 /* Garamond.ttf */; };
 		925F66861E6F607200BC4073 /* loading-dat.gif in Resources */ = {isa = PBXBuildFile; fileRef = 925F66851E6F607100BC4073 /* loading-dat.gif */; };
 		925F66881E6F60DD00BC4073 /* ajax-loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 925F66871E6F60DD00BC4073 /* ajax-loader.gif */; };
 		925F668A1E6F7F3C00BC4073 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925F66891E6F7F3C00BC4073 /* Constants.swift */; };
@@ -60,7 +59,6 @@
 		9253098E1E681E77003C77F2 /* LikersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikersViewController.swift; sourceTree = "<group>"; };
 		925309901E681ED7003C77F2 /* LikerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikerTableViewCell.swift; sourceTree = "<group>"; };
 		925309921E68DCC7003C77F2 /* loading-1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading-1.gif"; sourceTree = "<group>"; };
-		925F66811E6E04AB00BC4073 /* Garamond.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Garamond.ttf; path = ../../../../Downloads/Garamond.ttf; sourceTree = "<group>"; };
 		925F66851E6F607100BC4073 /* loading-dat.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading-dat.gif"; sourceTree = "<group>"; };
 		925F66871E6F60DD00BC4073 /* ajax-loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ajax-loader.gif"; sourceTree = "<group>"; };
 		925F66891E6F7F3C00BC4073 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 				925F66871E6F60DD00BC4073 /* ajax-loader.gif */,
 				925F66851E6F607100BC4073 /* loading-dat.gif */,
 				925309921E68DCC7003C77F2 /* loading-1.gif */,
-				925F66811E6E04AB00BC4073 /* Garamond.ttf */,
 				92EF3A471E60D2ED00B1D948 /* Main.storyboard */,
 				92EF3A4A1E60D2ED00B1D948 /* Assets.xcassets */,
 				92EF3A4C1E60D2ED00B1D948 /* LaunchScreen.storyboard */,
@@ -333,7 +330,6 @@
 				925F66881E6F60DD00BC4073 /* ajax-loader.gif in Resources */,
 				92EF3A4B1E60D2ED00B1D948 /* Assets.xcassets in Resources */,
 				92EF3A491E60D2ED00B1D948 /* Main.storyboard in Resources */,
-				925F66821E6E04AB00BC4073 /* Garamond.ttf in Resources */,
 				925F66861E6F607200BC4073 /* loading-dat.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
