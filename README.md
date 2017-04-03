@@ -1,6 +1,6 @@
 # eventBook
 
-![alt tag](http://i.imgur.com/8LQS06T.png)
+![alt tag](http://i.imgur.com/DU4YOOb.png) /
 ![alt tag](http://i.imgur.com/edTI4zl.jpg)
 ![alt tag](http://i.imgur.com/xZ7Hjwk.jpg)
 
